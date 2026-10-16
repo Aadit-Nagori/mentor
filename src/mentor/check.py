@@ -4,5 +4,5 @@ from rich import print
 app = typer.Typer()
 
 @app.command()
-def check():
+def check() -> None:
     print("[green]check:[/green]  ->")

@@ -31,7 +31,7 @@ def main(
             help="Show the version and exit.",
         ),
     ] = False,
-):
+) -> None:
     pass
 
 
