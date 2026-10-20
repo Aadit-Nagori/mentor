@@ -37,3 +37,7 @@ class ScratchRepo:
     def checkout(self, name: str) -> None:
         self.run("checkout",name)
 
+    def write_bytes(self, name: str, content: bytes):
+        write_path = self.repo_dir/name
+        write_path.parent.mkdir(parents=True, exist_ok=True)
+        write_path.write_bytes(content)

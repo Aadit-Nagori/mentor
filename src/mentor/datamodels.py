@@ -22,6 +22,10 @@ class FilteredReason(StrEnum):
     TOO_LARGE = auto()
     OVER_BUDGET = auto()
 
+class FilePolicy(StrEnum):
+    WHOLEFILE = auto()
+    HUNKONLY = auto()
+
 @dataclass(frozen=True)
 class Exclusion:
     reason: FilteredReason
@@ -49,14 +53,16 @@ class ChangedFile:
     new_path: Path | None
     change_type: ChangeType
     is_binary: bool
-    exclusion: Exclusion | None
     hunks: tuple[Hunk, ...]
+    exclusion: Exclusion | None = None
+    full_content: str | None = None
+    file_policy: FilePolicy | None = None
 
 @dataclass(frozen=True)
 class Diff:
     base_sha: str
     head_sha: str
-    files: list[ChangedFile]
+    files: tuple[ChangedFile, ...]
 
     @property
     def reviewable(self) -> list[ChangedFile]:
